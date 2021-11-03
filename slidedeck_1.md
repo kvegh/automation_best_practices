@@ -1,162 +1,99 @@
 ---
-title: Best 
-tags: Templates, Talk
-description: View the slide with "Slide Mode".
+title: Best Practices for Implementing Automation Projects 
+tags: Talk, Automation, Ansible
+description: This is intended as a slidedeck to collaborate over Automation best practices
 ---
 
-# Unleash the power!
-
+## Best Practices for Automation Projects
 <!-- Put the link to this slide here so people can follow -->
-slide: https://hackmd.io/p/template-Talk-slide
+slide: https://hackmd.io/@kvegh/automation_best_practices/
 
 ---
 
-We have a collaborative session
-
-please prepare laptop or smartphone to join!
+### TL;DR: the intention here is to collect key strategies to focus on during automation projects
 
 ---
 
-## Who am I?
+<!-- .slide: style="font-size: 18px;" -->
 
-- Front-end developer
-- VSCode :heart: 
-- I use tabs. :cat: 
+#### #1 Minimize the number of automation frameworks
+***
+As far as possible, if you can, then to one single tool. The more different teams speak the same markup language, the better the collaboration. **Maximize collaboration**. 
 
----
+/* It's easy to get distracted to highly focused tools for specific usecases, however complexity doesn't pay off, and different tools grow the maintenance effort of the automation framework exponentially. */ 
 
-### 70% of our users are developers. Developers :heart: GitHub.
-
----
-
-{%youtube E8Nj7RwXf0s %}
+IOW: Aim for joining automation efforts **across teams**, in all IT Stack Layers. 
 
 ---
 
-### Usage flow
+<!-- .slide: style="font-size: 18px;" -->
+
+#### #2 Aim for [Infrastructure as Code](https://https://www.redhat.com/en/topics/automation/what-is-infrastructure-as-code-iac)
+***
+Describing your infrastructure with versionable code allows you to: 
+* Document and review changes in the Deployment code (also, retrospectively)
+* Version Infrastructure definition releases
+* Rebuild Infrastructure any time (allowing Just-in-time-DR and multicloud migrations)
+* Regularly validate running configuration 
 
 ---
 
+<!-- .slide: style="font-size: 18px;" -->
 
-```graphviz
-digraph {
-  compound=true
-  rankdir=RL
+#### #3 Aim for lowest requirements on the managed node side
+***
+Deploying agents can be both undesired (updates, security) and/or even not possible (hypervisors, cloud instances, network elements, application instances...) 
 
-  graph [ fontname="Source Sans Pro", fontsize=20 ];
-  node [ fontname="Source Sans Pro", fontsize=18];
-  edge [ fontname="Source Sans Pro", fontsize=12 ];
-
-
-  subgraph core {
-    c [label="Hackmd-it \ncore"] [shape=box]
-  }
-  
-  c -> sync [ltail=session lhead=session]
-
-  subgraph cluster1 {
-     concentrate=true
-    a [label="Text source\nGithub, Gitlab, ..."] [shape=box]
-    b [label="HackMD Editor"] [shape=box]
-    sync [label="sync" shape=plaintext ]
-    b -> sync  [dir="both"]
-    sync -> a [dir="both"]
-    label="An edit session"
-  }
-}
-```
+Use standard connections, APIs instead. 
 
 ---
 
-### Architecture of extension
+<!-- .slide: style="font-size: 18px;" -->
+
+#### #4 Research the Vendor support for technologies to be automated
+***
+No need to build everything from scratch. 
+
+In order to efficiently automate different usecases, ensure that the technology vendor itself is involved in creating the automation content or best practices for their own solutions. 
 
 ---
 
-![](https://i.imgur.com/ij69tPh.png)
+<!-- .slide: style="font-size: 18px;" -->
+
+#### #5 Define and DOCUMENT [the usecases to be automated](https://http://people.redhat.com/kvegh/slidedecks/Finding%20the%20right%20automation%20usecases%20to%20start%20with%20-%20German+English.pdf) VERY CLEARLY 
+***
+Automation projects stand and fall with the usecase definitions - and the focus being kept on them. Prioritize, and plan the timeline of rolling them out. 
 
 ---
 
-## Content script
+<!-- .slide: style="font-size: 18px;" -->
 
-- Bind with each page
-- Manipulate DOM
-- Add event listeners
-- Isolated JavaScript environment
-  - It doesn't break things
+#### #6 Automated usecases shall be consumable in a self-service manner
+***
+Have interfaces defined where users/customers with the right roles can trigger automated jobs, preferably without human intervention. 
 
 ---
 
-# :fork_and_knife: 
+<!-- .slide: style="font-size: 18px;" -->
+
+#### #7 Auditability
+***
+The outcome of all triggered automation jobs shall be centrally collected for review and/or autditing purposes. Consider implementing an auditor/reviewer role. 
 
 ---
 
-<style>
-code.blue {
-  color: #337AB7 !important;
-}
-code.orange {
-  color: #F7A004 !important;
-}
-</style>
+<!-- .slide: style="font-size: 18px;" -->
 
-- <code class="orange">onMessage('event')</code>: Register event listener
-- <code class="blue">sendMessage('event')</code>: Trigger event
+#### #8 Automated usecases shall be consumable in a self-service manner
+***
+Have interfaces defined where users/customers with the right roles can trigger automated jobs, preferably without human intervention. 
+
 
 ---
 
-# :bulb: 
+<!-- .slide: style="font-size: 18px;" -->
 
----
+#### #X Automated usecases shall be consumable in a self-service manner
+***
+Have interfaces defined where users/customers with the right roles can trigger automated jobs, preferably without human intervention. 
 
-- Dead simple API
-- Only cares about application logic
-
----
-
-```typescript
-import * as Channeru from 'channeru'
-
-// setup channel in different page environment, once
-const channel = Channeru.create()
-```
-
----
-
-```typescript
-// in background script
-const fakeLogin = async () => true
-
-channel.answer('isLogin', async () => {
-  return await fakeLogin()
-})
-```
-
-<br>
-
-```typescript
-// in inject script
-const isLogin = await channel.callBackground('isLogin')
-console.log(isLogin) //-> true
-```
-
----
-
-# :100: :muscle: :tada:
-
----
-
-### Wrap up
-
-- Cross envornment commnication
-- A small library to solve messaging pain
-- TypeScript Rocks :tada: 
-
----
-
-### Thank you! :sheep: 
-
-You can find me on
-
-- GitHub
-- Twitter
-- or email me
